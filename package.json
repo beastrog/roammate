@@ -10,8 +10,8 @@
     "preview": "vite preview",
     "vercel-build": "vite build",
     "start": "vite preview --port 3000",
-    "generate:assets": "node scripts/generate-logos.js && node scripts/update-assets.js",
-    "prebuild": "npm run generate:assets"
+    "generate:assets": "node scripts/generate-logos.js && node scripts/update-assets.js || echo 'Skipping asset generation (canvas not available)'",
+    "prebuild": "npm run generate:assets || true"
   },
   "dependencies": {
     "@types/react-router-dom": "^5.3.3",
@@ -26,8 +26,10 @@
     "node": ">=16.0.0",
     "npm": ">=7.0.0"
   },
+  "optionalDependencies": {
+    "canvas": "^2.11.2"
+  },
   "devDependencies": {
-    "canvas": "^2.11.2",
     "sharp": "^0.33.3",
     "@eslint/js": "^9.9.1",
     "@types/react": "^18.3.5",

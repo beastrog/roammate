@@ -8,6 +8,12 @@ const publicDir = path.join(__dirname, '../public');
 const imagesDir = path.join(publicDir, 'images');
 const iconsDir = path.join(publicDir, 'icons');
 
+// Check if index.html exists
+if (!fs.existsSync(indexPath)) {
+  console.warn('index.html not found, skipping asset updates');
+  process.exit(0);
+}
+
 // Read the index.html file
 let html = fs.readFileSync(indexPath, 'utf8');
 

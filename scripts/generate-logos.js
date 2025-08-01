@@ -4,7 +4,18 @@
 const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
-const { createCanvas, loadImage } = require('canvas');
+let canvas;
+let loadImage;
+
+try {
+  const canvasPkg = require('canvas');
+  canvas = canvasPkg.createCanvas;
+  loadImage = canvasPkg.loadImage;
+} catch (error) {
+  console.warn('Canvas not available, skipping logo generation');
+  console.warn('To enable logo generation, install canvas dependencies: https://www.npmjs.com/package/canvas#compiling');
+  process.exit(0);
+}
 
 // Ensure public directory exists
 const publicDir = path.join(__dirname, '../public');
