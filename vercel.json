@@ -1,77 +1,37 @@
 {
   "version": 2,
-  "name": "roammate",
-  "public": true,
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": { "distDir": ".next" }
+      "use": "@vercel/next"
     }
   ],
   "routes": [
-    // Handle static assets with caching
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
     {
       "src": "/_next/static/(?:[^/]+/pages|chunks|runtime|css|media)/.+",
       "headers": {
         "cache-control": "public, max-age=31536000, immutable"
       }
     },
-    // Handle other static assets
     {
       "src": "/static/(.*)",
       "headers": {
         "cache-control": "public, max-age=31536000, immutable"
       }
     },
-    // Handle images with caching
     {
-      "src": "/(.*\.(?:ico|png|jpg|jpeg|gif|svg|webp|avif|woff|woff2|ttf|eot))",
+      "src": "/(.*\\.(?:ico|png|jpg|jpeg|gif|svg|webp|avif|woff|woff2|ttf|eot))",
       "headers": {
         "cache-control": "public, max-age=31536000, must-revalidate"
       }
     },
-    // Handle all other requests with HTML5 history API fallback
     {
-      "src": "/.*",
-      "dest": "/index.html"
+      "src": "/(.*)",
+      "dest": "/$1"
     }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        },
-        {
-          "key": "Permissions-Policy",
-          "value": "camera=(), microphone=(), geolocation=()"
-        }
-      ]
-    }
-  ],
-  "env": {
-    "NODE_VERSION": "18.x"
-  },
-  "regions": ["bom1"],
-  "framework": "vite",
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api" }
   ]
 }
