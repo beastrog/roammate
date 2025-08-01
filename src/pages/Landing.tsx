@@ -153,6 +153,12 @@ const Landing: React.FC = () => {
               className="flex items-center space-x-2 text-gray-600 hover:text-orange-600 transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                const storiesSection = document.getElementById('stories-section');
+                if (storiesSection) {
+                  storiesSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
             >
               <div className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center">
                 <Play size={20} className="text-orange-600 ml-1" />
@@ -244,7 +250,7 @@ const Landing: React.FC = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-orange-50 to-amber-50">
+      <section id="stories-section" className="py-20 px-4 bg-gradient-to-r from-orange-50 to-amber-50">
         <div className="max-w-6xl mx-auto">
           <motion.div
             className="text-center mb-16"

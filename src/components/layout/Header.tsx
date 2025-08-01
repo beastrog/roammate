@@ -408,7 +408,7 @@ const Header: React.FC = () => {
                     Log in
                   </motion.button>
                 </Link>
-                <Link to="/register">
+                <Link to="/login?mode=signup">
                   <motion.button
                     className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-orange-500 to-amber-500 rounded-lg hover:shadow-md transition-all"
                     whileHover={{ y: -1, scale: 1.02 }}

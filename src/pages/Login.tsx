@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Lock, Mail, User as UserIcon, Sun, Moon } from 'lucide-react';
 import { useTheme, useCurrentTheme } from '../contexts/ThemeContext';
 
@@ -9,7 +9,16 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
+    const [searchParams] = useSearchParams();
   const [isLogin, setIsLogin] = useState(true);
+
+  // Check for mode=signup in the URL when component mounts
+  useEffect(() => {
+    const mode = searchParams.get('mode');
+    if (mode === 'signup') {
+      setIsLogin(false);
+    }
+  }, [searchParams]);
   const { theme, toggleTheme } = useTheme();
   const currentTheme = useCurrentTheme();
   const [formData, setFormData] = useState({
